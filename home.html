@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}Account Storage{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Account Storage</a>
+    <!--    username / logout-->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username">{{ admin.username }}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="/login">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Add Account
+</button>
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+    <form method="POST">
+        <div class="form-group">
+            <label class="small mb-1" for="firstName">First Name</label>
+            <input class="form-control py-4" name="firstName" id="firstName" type="text" placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="middleInitial">Middle Initial</label>
+            <input class="form-control py-4" name="middleInitial" id="middleInitial" type="text"
+                   placeholder="Enter middle initial">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="lastName">Last Name</label>
+            <input class="form-control py-4" name="lastName" id="lastName" type="text" placeholder="Enter last name">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="birthDate">Date of Birth</label>
+            <input class="form-control py-4" name="birthDate" id="birthDate" type="text"
+                   placeholder="Enter date of birth">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="address">Home Address</label>
+            <input class="form-control py-4" name="address" id="address" type="text" placeholder="Enter home address">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="email">Email</label>
+            <input class="form-control py-4" name="email" id="email" type="email" placeholder="Enter email address">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="phoneNumber">Phone Number</label>
+            <input class="form-control py-4" name="phoneNumber" id="phoneNumber" type="text"
+                   placeholder="Enter phone number">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="emergencyContactFirstName">Emergency Contact First Name</label>
+            <input class="form-control py-4" name="emergencyContactFirstName" id="emergencyContactFirstName" type="text"
+                   placeholder="Enter emergency contact first name">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="emergencyContactLastName">Emergency Contact Last Name</label>
+            <input class="form-control py-4" name="emergencyContactLastName" id="emergencyContactLastName" type="text"
+                   placeholder="Enter emergency contact last name">
+        </div>
+        <div class="form-group">
+            <label class="small mb-1" for="emergencyContactPhoneNumber">Emergency Contact Phone Number</label>
+            <input class="form-control py-4" name="emergencyContactPhoneNumber" id="emergencyContactPhoneNumber"
+                   type="text" placeholder="Enter emergency contact phone number">
+        </div>
+        <div class="modal-footer" align="center">
+    <button type="submit" class="btn btn-primary">Add Account</button>
+  </div>
+    </form>
+</div>
+  </div>
+</div>
+  </div>
+</div>
+
+<div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold">All Accounts</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Middle Initial</th>
+                                            <th>Last Name</th>
+                                            <th>Date of Birth</th>
+                                            <th>Home Address</th>
+                                            <th>Email Address</th>
+                                            <th>Phone Number</th>
+                                            <th>Emergency Contact First Name</th>
+                                            <th>Emergency Contact Last Name</th>
+                                            <th>Emergency Contact Phone Number</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for account in admin.accounts %}
+                                        <tr>
+                                            <td>{{ account.firstName }}</td>
+                                            <td>{{ account.middleInitial }}</td>
+                                            <td>{{ account.lastName }}</td>
+                                            <td>{{ account.birthDate }}</td>
+                                            <td>{{ account.address }}</td>
+                                            <td>{{ account.email }}</td>
+                                            <td>{{ account.phoneNumber }}</td>
+                                            <td>{{ account.emergencyContactFirstName }}</td>
+                                            <td>{{ account.emergencyContactLastName }}</td>
+                                            <td>{{ account.emergencyContactPhoneNumber }}</td>
+                                            <td><button type="button" class="close" onClick="deleteAccount({{ account.id }})">
+                                            <span> <i class="fas fa-trash"></i></span>
+                                            </button></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+</div>
+
+{% endblock %}
